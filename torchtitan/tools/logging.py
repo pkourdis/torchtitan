@@ -12,9 +12,11 @@ logger = logging.getLogger()
 
 
 def init_logger():
-    logger.setLevel(logging.INFO)
+    log_level_str = os.environ.get('TITAN_LOG_LEVEL', 'INFO').upper()
+    log_level = getattr(logging, log_level_str, logging.INFO)
+    logger.setLevel(log_level)
     ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+    ch.setLevel(log_level)
     formatter = logging.Formatter(
         "[titan] %(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
