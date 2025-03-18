@@ -1,8 +1,11 @@
-# BKMs for running models in `torchtitan` on the Aurora supercomputer
+# BKMs for running models with `torchtitan` on the Aurora supercomputer
 To run:
 ```
 git checkout https://github.com/pkourdis/torchtitan.git
 cd torchtitan
+```
+Download a tokenizer following the instructions here https://github.com/pkourdis/torchtitan/tree/aurora?tab=readme-ov-file#downloading-a-tokenizer.
+```
 git checkout aurora
 cd aurora
 qsub -l nodes=<NUM_NODES>:ncpus=208 -l walltime=<DURATION> -l filesystems=home -q <QUEUE> -A <ACCOUNT_NAME> ./run_train.sh
@@ -23,7 +26,7 @@ aurora/train_configs/
     ├── llama3_70b.toml
     └── llama3_8b.toml
 ```
-Traing logs can be found in ``torchtitan/aurora/output/logs`
+Traing logs can be found in `torchtitan/aurora/output/logs`
 ```
 aurora/outputs/logs
 ├── llama3_70b
