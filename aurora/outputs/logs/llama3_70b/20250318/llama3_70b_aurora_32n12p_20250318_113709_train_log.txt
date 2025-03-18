@@ -1,0 +1,35 @@
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:27,279 - root - INFO - Starting job: Llama 3 70B training
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:27,280 - root - INFO - [GC] Initial GC collection. 0.00 seconds.
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:29,236 - root - INFO - Building 1-D device mesh with ['dp_shard'], [384]
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: 2025:03:18-11:39:29:(159351) |CCL_WARN| value of CCL_KVS_MODE changed to be mpi (default:pmi)
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: 2025:03:18-11:39:29:(159351) |CCL_WARN| value of CCL_KVS_CONNECTION_TIMEOUT changed to be 140 (default:120)
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: 2025:03:18-11:39:29:(159351) |CCL_WARN| value of CCL_PROCESS_LAUNCHER changed to be pmix (default:hydra)
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:36,458 - root - INFO - TikTokenizer built: #words 128256, BOS ID 128000, EOS ID 128001
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:36,458 - root - INFO - Preparing c4 dataset from /flare/Aurora_deployment/sgoswami/datavol/mldata/hf/c4
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:38,365 - root - INFO - Building llama3 70B with TransformerModelArgs(_enforced='This field is used to enforce all fields have defaults.', dim=8192, n_layers=80, n_heads=64, n_kv_heads=8, vocab_size=128256, multiple_of=4096, ffn_dim_multiplier=1.3, norm_eps=1e-05, rope_theta=500000, max_seq_len=1024, depth_init=True, norm_type='rmsnorm')
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:38,717 - root - INFO - XPU capacity: Intel(R) Data Center GPU Max 1550 with 64.00GiB memory
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:38,991 - root - WARNING - Peak flops undefined for: Intel(R) Data Center GPU Max 1550, fallback to A100
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:38,993 - root - INFO - [34mModel llama3 70B [31msize: 70,553,706,496 total parameters[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:38,995 - root - INFO - Applied full activation checkpointing to the model
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:40,539 - root - INFO - Applied FSDP to the model
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:43,785 - root - WARNING - Peak flops undefined for: Intel(R) Data Center GPU Max 1550, fallback to A100
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:43,785 - root - INFO - Peak FLOPS used for computing MFU: 3.120e+14
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:43,785 - root - INFO - XPU memory usage for model: 0.77GiB(1.20%)
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:43,788 - root - INFO - Trainer initialized.
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:39:43,788 - root - INFO - Training starts at step 1, with local batch size 8, global batch size 3072, sequence length 1024, total steps 1000 (warmup 200)
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:45:21,370 - root - INFO - [31mstep:  1  [32mloss: 12.2553  [33mmemory: 49.17GiB(76.83%)  [34mtps: 24  [36mtflops: 10.17  [35mmfu: 3.26%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:45:21,370 - root - INFO - Synchronizing and adjusting timeout for all ProcessGroups to 0:01:40
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 11:55:21,521 - root - INFO - [31mstep:  5  [32mloss: 10.9617  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.21  [35mmfu: 7.44%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 12:07:38,922 - root - INFO - [31mstep: 10  [32mloss: 10.7653  [33mmemory: 50.79GiB(79.37%)  [34mtps: 56  [36mtflops: 23.61  [35mmfu: 7.57%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 12:20:00,251 - root - INFO - [31mstep: 15  [32mloss:  9.4942  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.49  [35mmfu: 7.53%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 12:32:22,510 - root - INFO - [31mstep: 20  [32mloss:  8.9823  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.46  [35mmfu: 7.52%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 12:46:23,762 - root - INFO - [31mstep: 25  [32mloss:  8.3402  [33mmemory: 50.79GiB(79.37%)  [34mtps: 49  [36mtflops: 20.70  [35mmfu: 6.63%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 12:58:47,148 - root - INFO - [31mstep: 30  [32mloss:  7.8880  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.42  [35mmfu: 7.51%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 13:11:04,025 - root - INFO - [31mstep: 35  [32mloss:  7.6548  [33mmemory: 50.79GiB(79.37%)  [34mtps: 56  [36mtflops: 23.63  [35mmfu: 7.57%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 13:23:48,929 - root - INFO - [31mstep: 40  [32mloss:  7.4033  [33mmemory: 50.79GiB(79.37%)  [34mtps: 54  [36mtflops: 22.76  [35mmfu: 7.30%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 13:38:22,547 - root - INFO - [31mstep: 45  [32mloss:  7.2766  [33mmemory: 50.79GiB(79.37%)  [34mtps: 47  [36mtflops: 19.93  [35mmfu: 6.39%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 13:51:34,920 - root - INFO - [GC] Peforming periodical GC collection. 0.11 seconds.
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 13:54:21,151 - root - INFO - [31mstep: 50  [32mloss:  7.1439  [33mmemory: 50.79GiB(79.37%)  [34mtps: 43  [36mtflops: 18.16  [35mmfu: 5.82%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 14:06:41,526 - root - INFO - [31mstep: 55  [32mloss:  7.0891  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.52  [35mmfu: 7.54%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 14:18:58,327 - root - INFO - [31mstep: 60  [32mloss:  6.9931  [33mmemory: 50.79GiB(79.37%)  [34mtps: 56  [36mtflops: 23.63  [35mmfu: 7.57%[39m
+x4210c2s0b0n0.hostmgmt2210.cm.aurora.alcf.anl.gov 0: [titan] 2025-03-18 14:31:19,096 - root - INFO - [31mstep: 65  [32mloss:  6.8813  [33mmemory: 50.79GiB(79.37%)  [34mtps: 55  [36mtflops: 23.50  [35mmfu: 7.53%[39m

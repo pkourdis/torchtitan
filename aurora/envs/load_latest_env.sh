@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Just to unload oneAPI 2024.07.30.002
+module unload oneapi/eng-compiler/2024.07.30.002
+module use -a /opt/aurora/24.180.3/spack/unified/0.8.0/install/modulefiles/oneapi/2024.07.30.002
+module unload oneapi/eng-compiler/2024.07.30.002
+module unload gcc/12.2.0
+
+# Load oneAPI 2025.1.0.489
+module use -a /flare/Aurora_deployment/pkourdis/soft/oneapi/modulefiles
+module load 2025.1.0.489/tbb/2022.1
+module load 2025.1.0.489/umf/0.10.0
+module load 2025.1.0.489/compiler-rt/2025.1.0
+module load 2025.1.0.489/compiler-intel-llvm/2025.1.0
+module load 2025.1.0.489/mkl/2025.1
+source /flare/Aurora_deployment/pkourdis/soft/oneapi/2025.1.0.489/ccl/2021.15/env/vars.sh --ccl-bundled-mpi=no
+source /flare/Aurora_deployment/pkourdis/soft/oneapi/2025.1.0.489/pti/0.11/env/vars.sh
+
+module list
+
+# Activate conda env
+source /flare/Aurora_deployment/pkourdis/conda/etc/profile.d/conda.sh
+conda activate pytorch-2.7+git7bab735_ipex-2.7+git5311aa7
+
+export CPATH="/flare/Aurora_deployment/pkourdis/soft/gcc-releases-gcc-13.3.0/install/include":$CPATH
+export LD_LIBRARY_PATH="/flare/Aurora_deployment/pkourdis/soft/gcc-releases-gcc-13.3.0/install/lib64":$LD_LIBRARY_PATH
+export PATH="/flare/Aurora_deployment/pkourdis/soft/gcc-releases-gcc-13.3.0/install/bin":$PATH
+
+export FI_PROVIDER="cxi,tcp;ofi_rxm"
+export FI_CXI_DEFAULT_CQ_SIZE=131072
+export FI_CXI_OVFLOW_BUF_SIZE=8388608
+export FI_CXI_CQ_FILL_PERCENT=20
+
+export PALS_PMI=pmix
+
+export CCL_KVS_MODE=mpi
+export CCL_KVS_CONNECTION_TIMEOUT=140
+export CCL_WORKER_AFFINITY="5,13,21,29,37,45,57,65,73,81,89,97"
+export CCL_ATL_TRANSPORT=mpi
+export CCL_PROCESS_LAUNCHER=pmix
+
+export ZE_FLAT_DEVICE_HIERARCHY=FLAT
+
+export AURORA_CPU_BINDINGS="list:2-4:10-12:18-20:26-28:34-36:42-44:54-56:62-64:70-72:78-80:86-88:94-96"
