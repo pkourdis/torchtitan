@@ -22,15 +22,16 @@ SYSTEM=${SYSTEM:-aurora}
 ENV_TO_LOAD=./envs/${SYSTEM}/load_latest_env.sh
 source ${ENV_TO_LOAD} ${PT_CONFIG}
 
-if [[ "$SYSTEM" == "aurora" ]]; then
-    IFS='.' read -ra ADDR <<< "`cat $PBS_NODEFILE | head -1`"
-    export MASTER_ADDR=$ADDR".hsn.cm.aurora.alcf.anl.gov"
-elif [[ "$SYSTEM" == "borealis" ]]; then
-    export MASTER_ADDR=$(head -n 1 ${PBS_NODEFILE})
-else
-    echo "Uknown system ${SYSTEM}!"
-    exit 1
-fi
+#if [[ "$SYSTEM" == "aurora" ]]; then
+#    IFS='.' read -ra ADDR <<< "`cat $PBS_NODEFILE | head -1`"
+#    export MASTER_ADDR=$ADDR".hsn.cm.aurora.alcf.anl.gov"
+#elif [[ "$SYSTEM" == "borealis" ]]; then
+#    export MASTER_ADDR=$(head -n 1 ${PBS_NODEFILE})
+#else
+#    echo "Uknown system ${SYSTEM}!"
+#    exit 1
+#fi
+export MASTER_ADDR=$(head -n 1 ${PBS_NODEFILE})
 export MASTER_PORT=29500
 
 TODAY=$(date '+%Y-%m-%d')
