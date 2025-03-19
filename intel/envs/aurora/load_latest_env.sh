@@ -20,7 +20,17 @@ module list
 
 # Activate conda env
 source /flare/Aurora_deployment/pkourdis/conda/etc/profile.d/conda.sh
-conda activate pytorch-2.7+git7bab735_ipex-2.7+git5311aa7
+
+if [ "$1" = "pt" ]; then
+    conda activate pytorch-2.7+git7bab735
+    echo "Loaded PyTorch conda env: pytorch-2.7+git7bab735"    
+elif [ "$1" = "pt+ipex" ]; then
+    conda activate pytorch-2.7+git7bab735_ipex-2.7+git5311aa7
+    echo "Loaded PyTorch+IPEX conda env: pytorch-2.7+git7bab735_ipex-2.7+git5311aa7"
+else
+    echo "ERROR: Unrecognized option \"$1\" for loading PyTorch only or PyTorch+IPEX conda environment"
+    exit 1
+fi
 
 export CPATH="/flare/Aurora_deployment/pkourdis/soft/gcc-releases-gcc-13.3.0/install/include":$CPATH
 export LD_LIBRARY_PATH="/flare/Aurora_deployment/pkourdis/soft/gcc-releases-gcc-13.3.0/install/lib64":$LD_LIBRARY_PATH
@@ -38,6 +48,8 @@ export CCL_KVS_CONNECTION_TIMEOUT=140
 export CCL_WORKER_AFFINITY="5,13,21,29,37,45,57,65,73,81,89,97"
 export CCL_ATL_TRANSPORT=mpi
 export CCL_PROCESS_LAUNCHER=pmix
+
+export TORCH_LLM_ALLREDUCE=1
 
 export ZE_FLAT_DEVICE_HIERARCHY=FLAT
 
