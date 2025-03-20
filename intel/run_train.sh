@@ -11,6 +11,7 @@ LLAMA_CONFIG=${LLAMA_CONFIG:-llama3_8b}
 
 CONFIG_FILE="../intel/train_configs/llama/${LLAMA_CONFIG}.toml"
 
+export PBS_O_WORKDIR=`pwd`
 cd $PBS_O_WORKDIR
 
 # Loads environment to run the model
