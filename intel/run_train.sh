@@ -47,7 +47,10 @@ mkdir -p $RUN_LOG_DIR
 cp ${ENV_TO_LOAD} ${RUN_LOG_DIR}/${LLAMA_CONFIG}_aurora_${NUMNODES}n${NUMPROCS}ppn_${PT_CONFIG}_${PBS_JOBID_NUM}pbs_${TIMESTAMP}_train_env.sh
 cp ${CONFIG_FILE} ${RUN_LOG_DIR}/${LLAMA_CONFIG}_aurora_${NUMNODES}n${NUMPROCS}ppn_${PT_CONFIG}_${PBS_JOBID_NUM}pbs_${TIMESTAMP}_train_config.toml
 
+echo "[Intel] Running ${LLAMA_CONFIG} on ${SYSTEM^} system using ${NUMNODES} nodes with ${NUMPROCS} processes per node" |& tee $RUN_LOG_FILE
+echo "[Intel] Environment loaded from file $(realpath ./envs/aurora/load_latest_env.sh)" |& tee -a $RUN_LOG_FILE
+
 mpiexec --envall --pmi=pmix -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind=${AURORA_CPU_BINDINGS} \
  ./helpers/set_ranks_deps.sh \
  python ../torchtitan/train.py --job.config_file ${CONFIG_FILE} \
- |& tee $RUN_LOG_FILE
+ |& tee -a $RUN_LOG_FILE
