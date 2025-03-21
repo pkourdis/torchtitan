@@ -1,0 +1,1 @@
+aurora_pytorch-2.7+git7bab735_ipex-2.7+git5311aa7_oneapi-2025.1.0.489_ccl-2021.15.1-gold+gitfcc7ce8.env
