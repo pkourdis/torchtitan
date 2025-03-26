@@ -805,8 +805,11 @@ class JobConfig:
                 for name, func in inspect.getmembers(module)
                 if inspect.isfunction(func) and not name.startswith("_")
             ]
-            func = getattr(module, public_functions[0])
-            func(self.parser)
+            if public_functions:
+                func = getattr(module, public_functions[0])
+                func(self.parser)
+            else:
+                logger.debug(f"No public function found in {self.experimental.custom_args_module}")
 
     def to_dict(self):
         return self.args_dict
