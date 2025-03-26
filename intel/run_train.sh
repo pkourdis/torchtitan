@@ -53,7 +53,13 @@ cp ${CONFIG_FILE} ${LOG_FILE_SUFFIX}_config.toml
 echo "[Intel] Running ${LLAMA_CONFIG} on ${SYSTEM^} system using ${NUMNODES} nodes with ${NUMPROCS} processes per node" |& tee ${LOG_FILE}
 echo "[Intel] Environment loaded from file ${ENV_FULL_PATH}" |& tee -a ${LOG_FILE}
 
+MAYBE_WITH_IPEX=""
+if [[ "$PT_CONFIG" == "pt+ipex" ]]; then
+    MAYBE_WITH_IPEX="--experimental.custom_args_module=torchtitan.experiments.intel_extension_for_pytorch"
+fi
+
 mpiexec --envall --pmi=pmix -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind=${AURORA_CPU_BINDINGS} \
  ./helpers/set_ranks_deps.sh \
  python ../torchtitan/train.py --job.config_file ${CONFIG_FILE} \
+ ${MAYBE_WITH_IPEX} \
  |& tee -a ${LOG_FILE}
