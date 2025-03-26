@@ -65,7 +65,7 @@ def maybe_enable_profiling(config: JobConfig, *, global_step: int = 0):
         with torch.profiler.profile(
             activities=[
                 torch.profiler.ProfilerActivity.CPU,
-                gpu_device_profiled,
+                torch.profiler.ProfilerActivity.CUDA,
             ],
             schedule=torch.profiler.schedule(wait=wait, warmup=warmup, active=active),
             on_trace_ready=trace_handler,
