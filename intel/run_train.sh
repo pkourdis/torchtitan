@@ -19,8 +19,8 @@ SYSTEM=${SYSTEM:-aurora}
 
 # Do check for valid PyTorch config
 
-ENV_TO_LOAD=${ENV:-latest_env}
-ENV_REL_PATH=./envs/${SYSTEM}/${ENV_TO_LOAD}.sh
+ENV_TO_LOAD=${ENV:-latest}
+ENV_REL_PATH=./envs/${SYSTEM}/${ENV_TO_LOAD}.env
 source ${ENV_REL_PATH} ${PT_CONFIG}
 ENV_FULL_PATH=$(realpath ${ENV_REL_PATH})
 ENV_NAME=$(basename $(realpath ${ENV_FULL_PATH}) .env)
