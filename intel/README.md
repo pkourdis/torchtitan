@@ -45,7 +45,7 @@ torchtitan/intel/train_configs/
     ├── llama3_70b.toml
     └── llama3_8b.toml
 ```
-Each job generates a train log, saves the model configuration (i.e. the `*.toml` file) and the environment loaded on system whre the job run. The logs can be found at `torchtitan/aurora/output/logs/<SYSTEM>`:
+Each job generates a train log, saves the model configuration `TOML` file and the environment that was loaded on system to run the model. The logs can be found at `torchtitan/aurora/output/logs/<SYSTEM>`:
 ```
 torchtitan/intel/outputs/logs/
 └── aurora
