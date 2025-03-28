@@ -47,7 +47,7 @@ LOG_FILE_SUFFIX=${LOG_DIR}/${LLAMA_CONFIG}_${SYSTEM}_${USER}_${NUMNODES}n${NUMPR
 LOG_FILE=${LOG_FILE_SUFFIX}_log.txt
 
 mkdir -p ${LOG_DIR}
-cp ${ENV_REL_PATH} ${LOG_FILE_SUFFIX}_env.sh
+cp ${ENV_REL_PATH} ${LOG_FILE_SUFFIX}.env
 cp ${CONFIG_FILE} ${LOG_FILE_SUFFIX}_config.toml
 
 echo "[Intel] Running ${LLAMA_CONFIG} on ${SYSTEM^} system using ${NUMNODES} nodes with ${NUMPROCS} processes per node" |& tee ${LOG_FILE}
