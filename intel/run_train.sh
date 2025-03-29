@@ -44,11 +44,11 @@ PBS_JOBNUM="$( cut -d '.' -f 1 <<< "${PBS_JOBID}" )"
 
 LOG_DIR=./outputs/logs/${SYSTEM}/${LLAMA_CONFIG}/${ENV_NAME}/${TODAY}
 LOG_FILE_SUFFIX=${LOG_DIR}/${LLAMA_CONFIG}_${SYSTEM}_${USER}_${NUMNODES}n${NUMPROCS}ppn_${PT_CONFIG}_${PBS_JOBNUM}pbs_${TIMESTAMP}_train
-LOG_FILE=${LOG_FILE_SUFFIX}_log.txt
+LOG_FILE=${LOG_FILE_SUFFIX}.txt
 
 mkdir -p ${LOG_DIR}
 cp ${ENV_REL_PATH} ${LOG_FILE_SUFFIX}.env
-cp ${CONFIG_FILE} ${LOG_FILE_SUFFIX}_config.toml
+cp ${CONFIG_FILE} ${LOG_FILE_SUFFIX}.toml
 
 echo "[Intel] Running ${LLAMA_CONFIG} on ${SYSTEM^} system using ${NUMNODES} nodes with ${NUMPROCS} processes per node" |& tee ${LOG_FILE}
 echo "[Intel] Environment loaded from file ${ENV_FULL_PATH}" |& tee -a ${LOG_FILE}
