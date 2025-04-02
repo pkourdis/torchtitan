@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 #PBS -j oe
 
+cd $PBS_O_WORKDIR/..
+
 NUMPROCS=${PPN:-12}
 NUMNODES=$(cat ${PBS_NODEFILE} | wc -l)
 export WORLD_SIZE=$((NUMNODES * NUMPROCS))
@@ -9,9 +11,7 @@ LLAMA_CONFIG=${LLAMA_CONFIG:-llama3_8b}
 
 # Do check for valid Llama model
 
-CONFIG_FILE="../intel/train_configs/llama/${LLAMA_CONFIG}.toml"
-
-cd $PBS_O_WORKDIR
+CONFIG_FILE="./intel/train_configs/llama/${LLAMA_CONFIG}.toml"
 
 # Loads environment to run the model
 PT_CONFIG=${PT_CONFIG:-pt+ipex}
@@ -20,7 +20,7 @@ SYSTEM=${SYSTEM:-aurora}
 # Do check for valid PyTorch config
 
 ENV_TO_LOAD=${ENV:-latest}
-ENV_REL_PATH=./envs/${SYSTEM}/${ENV_TO_LOAD}.env
+ENV_REL_PATH=./intel/envs/${SYSTEM}/${ENV_TO_LOAD}.env
 source ${ENV_REL_PATH} ${PT_CONFIG}
 ENV_FULL_PATH=$(realpath ${ENV_REL_PATH})
 ENV_NAME=$(basename $(realpath ${ENV_FULL_PATH}) .env)
@@ -42,7 +42,7 @@ TIMENOW=$(date '+%H:%M')
 TIMESTAMP=${TODAY}_${TIMENOW}
 PBS_JOBNUM="$( cut -d '.' -f 1 <<< "${PBS_JOBID}" )"
 
-LOG_DIR=./outputs/logs/${SYSTEM}/${LLAMA_CONFIG}/${ENV_NAME}/${TODAY}
+LOG_DIR=./intel/outputs/logs/${SYSTEM}/${LLAMA_CONFIG}/${ENV_NAME}/${TODAY}
 LOG_FILE_SUFFIX=${LOG_DIR}/${LLAMA_CONFIG}_${SYSTEM}_${USER}_${NUMNODES}n${NUMPROCS}ppn_${PT_CONFIG}_${PBS_JOBNUM}pbs_${TIMESTAMP}_train
 LOG_FILE=${LOG_FILE_SUFFIX}.txt
 
@@ -58,8 +58,10 @@ if [[ "$PT_CONFIG" == "pt+ipex" ]]; then
     MAYBE_WITH_IPEX="--experimental.custom_args_module=torchtitan.experiments.intel_extension_for_pytorch"
 fi
 
+export PYTHONPATH="./":${PYTHONPATH}
+
 mpiexec --envall --pmi=pmix -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind=${AURORA_CPU_BINDINGS} \
- ./helpers/set_ranks_deps.sh \
- python ../torchtitan/train.py --job.config_file ${CONFIG_FILE} \
+ ./intel/helpers/set_ranks_deps.sh \
+ python ./torchtitan/train.py --job.config_file ${CONFIG_FILE} \
  ${MAYBE_WITH_IPEX} \
  |& tee -a ${LOG_FILE}

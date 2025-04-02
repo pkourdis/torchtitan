@@ -25,7 +25,7 @@ name = "llama3"
 flavor = "debugmodel"
 norm_type = "rmsnorm"  # layernorm / np_layernorm / rmsnorm
 # test tokenizer.model, for debug purpose only
-tokenizer_path = "../tests/assets/test_tiktoken.model"
+tokenizer_path = "./tests/assets/test_tiktoken.model"
 # converters = "float8"
 
 [optimizer]
