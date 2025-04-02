@@ -6,20 +6,20 @@ dump_folder = "./outputs"
 description = "Llama 3 8B training"
 
 [profiling]
-enable_profiling = true
+enable_profiling = false
 save_traces_folder = "profile_trace"
-profile_freq = 100
+profile_freq = 5
 
 [metrics]
-log_freq = 10
-enable_tensorboard = true
+log_freq = 2
+enable_tensorboard = false
 save_tb_folder = "tb"
 
 [model]
 name = "llama3"
 flavor = "8B"
 norm_type = "rmsnorm"  # layernorm / np_layernorm / rmsnorm
-tokenizer_path = "../assets/tokenizer/original/tokenizer.model"
+tokenizer_path = "./assets/tokenizer/original/tokenizer.model"
 # converters = "float8"
 
 [optimizer]
@@ -28,13 +28,13 @@ lr = 3e-4
 eps = 1e-8
 
 [lr_scheduler]
-warmup_steps = 200  # lr scheduler warm up
+warmup_steps = 1  # lr scheduler warm up
 
 [training]
 batch_size = 1
 seq_len = 8192
 max_norm = 1.0  # grad norm clipping
-steps = 1000
+steps = 20
 compile = false
 dataset = "c4"
 dataset_path = "/flare/Aurora_deployment/sgoswami/datavol/mldata/hf/c4"
