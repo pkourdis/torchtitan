@@ -1,0 +1,37 @@
+[Intel] Running llama3_8b on Aurora system using 1 nodes with 12 processes per node
+[Intel] Environment loaded from file /lus/flare/projects/Aurora_deployment/pkourdis/torchtitan/intel/envs/aurora/aurora_pytorch-2.8+git0da8127+ipex-2.8.10+gitdcaceb4_oneapi-2025.1.0.489_ccl-2021.15.1-gold+gitfcc7ce8.env
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:14,478 - root - INFO - Starting job: Llama 3 8B training
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:14,479 - root - INFO - [GC] Initial GC collection. 0.00 seconds.
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:14,510 - root - INFO - Building 1-D device mesh with ['dp_shard'], [12]
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_KVS_MODE changed to be mpi (default:pmi)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_KVS_CONNECTION_TIMEOUT changed to be 140 (default:120)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_BCAST changed to be double_tree (default:)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_ALLREDUCE_SCALEOUT changed to be direct (default:)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_SYCL_SCALEOUT_HOST_BUF_SIZE changed to be 2147483648 (default:1073741824)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: 2025:04:03-04:31:14:(116278) |CCL_WARN| value of CCL_PROCESS_LAUNCHER changed to be pmix (default:hydra)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:16,931 - root - INFO - TikTokenizer built: #words 128256, BOS ID 128000, EOS ID 128001
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:16,931 - root - INFO - Preparing c4 dataset from /flare/Aurora_deployment/sgoswami/datavol/mldata/hf/c4
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:18,059 - root - INFO - Building llama3 8B with TransformerModelArgs(_enforced='This field is used to enforce all fields have defaults.', dim=4096, n_layers=32, n_heads=32, n_kv_heads=8, vocab_size=128256, multiple_of=1024, ffn_dim_multiplier=1.3, norm_eps=1e-05, rope_theta=500000, max_seq_len=8192, depth_init=True, norm_type='rmsnorm', use_flex_attn=False)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:18,260 - root - INFO - XPU capacity: Intel(R) Data Center GPU Max 1550 with 64.00GiB memory
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:18,855 - root - INFO - [34mModel llama3 8B [31msize: 8,030,261,248 total parameters[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:18,856 - root - INFO - Applied selective activation checkpointing to the model
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:18,956 - root - INFO - Applied FSDP to the model
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:19,783 - root - INFO - Peak FLOPS used for computing MFU: 2.982e+14
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:19,784 - root - INFO - XPU memory usage for model: 2.67GiB(4.18%)
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:19,785 - root - INFO - Trainer is initialized with local batch size 1, global batch size 12, sequence length 8192, total steps 20 (warmup 1).
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:19,785 - root - INFO - Training starts at step 1.
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:40,972 - root - INFO - [31mstep:  1  [32mloss: 12.2479  [33mmemory: 44.90GiB(70.16%)  [34mtps: 370  [36mtflops: 21.45  [35mmfu: 7.19%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:40,972 - root - INFO - Synchronizing and adjusting timeout for all ProcessGroups to 0:01:40
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:47,044 - root - INFO - [31mstep:  2  [32mloss: 16.3566  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,349  [36mtflops: 78.14  [35mmfu: 26.20%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:31:59,167 - root - INFO - [31mstep:  4  [32mloss: 14.4937  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,351  [36mtflops: 78.27  [35mmfu: 26.25%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:32:11,150 - root - INFO - [31mstep:  6  [32mloss: 11.6830  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,367  [36mtflops: 79.19  [35mmfu: 26.56%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:32:23,065 - root - INFO - [31mstep:  8  [32mloss: 12.0693  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,375  [36mtflops: 79.63  [35mmfu: 26.71%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:32:34,971 - root - INFO - [31mstep: 10  [32mloss: 10.1687  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,376  [36mtflops: 79.70  [35mmfu: 26.73%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:32:46,876 - root - INFO - [31mstep: 12  [32mloss:  9.7103  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,376  [36mtflops: 79.70  [35mmfu: 26.73%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:32:58,768 - root - INFO - [31mstep: 14  [32mloss:  9.0459  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,378  [36mtflops: 79.79  [35mmfu: 26.76%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:10,662 - root - INFO - [31mstep: 16  [32mloss:  8.8631  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,378  [36mtflops: 79.78  [35mmfu: 26.76%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:22,555 - root - INFO - [31mstep: 18  [32mloss:  8.5189  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,378  [36mtflops: 79.79  [35mmfu: 26.76%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:34,448 - root - INFO - [31mstep: 20  [32mloss:  8.3517  [33mmemory: 44.90GiB(70.16%)  [34mtps: 1,378  [36mtflops: 79.79  [35mmfu: 26.76%[39m
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:34,448 - root - INFO - Sleeping 2 seconds for other ranks to complete
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:36,448 - root - INFO - Training completed
+x4707c7s5b0n0.hostmgmt2707.cm.aurora.alcf.anl.gov 0: [titan] 2025-04-03 04:33:36,448 - root - INFO - Process group destroyed.
