@@ -25,13 +25,13 @@ source ${ENV_REL_PATH} ${PT_CONFIG}
 ENV_FULL_PATH=$(realpath ${ENV_REL_PATH})
 ENV_NAME=$(basename $(realpath ${ENV_FULL_PATH}) .env)
 
-if [[ "$SYSTEM" == "aurora" ]]; then
+if [ "$SYSTEM" == "aurora" ] || [ "$SYSTEM" == "polaris" ]; then
     IFS='.' read -ra ADDR <<< "`cat $PBS_NODEFILE | head -1`"
-    export MASTER_ADDR=$ADDR".hsn.cm.aurora.alcf.anl.gov"
+    export MASTER_ADDR=$ADDR".hsn.cm.${SYSTEM}.alcf.anl.gov"
 elif [[ "$SYSTEM" == "borealis" ]]; then
     export MASTER_ADDR=$(head -n 1 ${PBS_NODEFILE})
 else
-    echo "Uknown system ${SYSTEM}!"
+    echo "Unknown system ${SYSTEM}!"
     exit 1
 fi
 #export MASTER_ADDR=$(head -n 1 ${PBS_NODEFILE})
@@ -58,10 +58,23 @@ if [[ "$PT_CONFIG" == "pt+ipex" ]]; then
     MAYBE_WITH_IPEX="--experimental.custom_args_module=torchtitan.experiments.intel_extension_for_pytorch"
 fi
 
+if [[ "$SYSTEM" == "polaris" ]]; then
+    C4_DATASET_POLARIS=" --training.dataset_path=/eagle/datasets/allenai/c4"
+fi
+
 export PYTHONPATH="./":${PYTHONPATH}
 
-mpiexec --envall --pmi=pmix -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind=${AURORA_CPU_BINDINGS} \
- ./intel/helpers/set_ranks_deps.sh \
- python ./torchtitan/train.py --job.config_file ${CONFIG_FILE} \
- ${MAYBE_WITH_IPEX} \
- |& tee -a ${LOG_FILE}
+if [[ "$SYSTEM" == "aurora" ]]; then
+    mpiexec --envall --pmi=pmix -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind=${AURORA_CPU_BINDINGS} \
+    ./intel/helpers/set_ranks_deps.sh \
+    python ./torchtitan/train.py --job.config_file ${CONFIG_FILE} \
+    ${MAYBE_WITH_IPEX} \
+    |& tee -a ${LOG_FILE}
+fi
+if [[ "$SYSTEM" == "polaris" ]]; then
+    PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True mpiexec --envall -np ${WORLD_SIZE} -ppn ${NUMPROCS} -l --line-buffer --cpu-bind depth -d 16 \
+    ./intel/helpers/set_ranks_deps.sh \
+    python ./torchtitan/train.py --job.config_file ${CONFIG_FILE} \
+    ${C4_DATASET_POLARIS} \
+    |& tee -a ${LOG_FILE}
+fi
