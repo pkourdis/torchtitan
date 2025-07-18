@@ -9,7 +9,18 @@ else
     export TITAN_LOG_LEVEL=ERROR
 fi
 
-if [[ "SYSTEM" == "aurora" ]]; then
+# Detect system from PBS
+SYSTEM=""
+if [[ ${PBS_O_HOST} == *"aurora"* ]]; then
+    SYSTEM="aurora"
+elif [[ ${PBS_O_HOST} == *"polaris"* ]]; then
+    SYSTEM="polaris"
+else
+    echo "Unknown system ${SYSTEM}!"
+    exit 1
+fi
+
+if [[ "$SYSTEM" == "aurora" ]]; then
     # CCL affinity based on number ranks per node
     if [[ "$PALS_LOCAL_SIZE" == "12" ]]; then
         export CCL_WORKER_AFFINITY=5,13,21,29,37,45,57,65,73,81,89,97

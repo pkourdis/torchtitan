@@ -32,6 +32,11 @@ from torchtitan.tools.profiling import (
     maybe_enable_profiling,
 )
 
+try:
+    import intel_extension_for_pytorch
+    logger.info(f"[Intel] Intel Extension for PyTorch is loaded")
+except:
+    logger.info(f"[Intel] Intel Extension for PyTorch is not loaded")
 
 class Trainer(torch.distributed.checkpoint.stateful.Stateful):
     # core configs

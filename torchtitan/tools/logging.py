@@ -12,6 +12,8 @@ logger = logging.getLogger()
 
 
 def init_logger():
+    if (logger.hasHandlers()):
+        logger.handlers.clear()
     log_level_str = os.environ.get('TITAN_LOG_LEVEL', 'INFO').upper()
     log_level = getattr(logging, log_level_str, logging.INFO)
     logger.setLevel(log_level)

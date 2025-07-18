@@ -6,12 +6,12 @@ dump_folder = "./outputs"
 description = "Llama 3 70B training"
 
 [profiling]
-enable_profiling = true
+enable_profiling = false
 save_traces_folder = "profile_trace"
 profile_freq = 100
 
 [metrics]
-log_freq = 10
+log_freq = 20
 enable_tensorboard = true
 save_tb_folder = "tb"
 
@@ -30,22 +30,22 @@ eps = 1e-8
 warmup_steps = 200  # lr scheduler warm up, normally 20% of the train steps
 
 [training]
-local_batch_size = 8
+local_batch_size = 1
 seq_len = 8192
 max_norm = 1.0  # grad norm clipping
-steps = 1000
+steps = 10000
 compile = false
 dataset = "c4"
 
 [parallelism]
 data_parallel_replicate_degree = 1
 data_parallel_shard_degree = -1
-tensor_parallel_degree = 8  # 8-way TP
+tensor_parallel_degree = 1
 pipeline_parallel_degree = 1
 context_parallel_degree = 1
 
 [checkpoint]
-enable_checkpoint = false
+enable_checkpoint = true
 folder = "checkpoint"
 interval = 500
 last_save_model_weights_only = false
@@ -55,7 +55,7 @@ async_mode = "disabled" # ["disabled", "async", "async_with_pinned_mem"]
 [activation_checkpoint]
 mode = "full"
 
-[float8]
-enable_fsdp_float8_all_gather = false
-precompute_float8_dynamic_scale_for_fsdp = false
-filter_fqns = ["output"]
+#[float8]
+#enable_fsdp_float8_all_gather = false
+#precompute_float8_dynamic_scale_for_fsdp = false
+#filter_fqns = ["output"]
